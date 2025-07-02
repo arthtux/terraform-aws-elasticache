@@ -22,7 +22,7 @@ resource "aws_elasticache_user_group" "this" {
 resource "aws_elasticache_user" "default" {
   count = var.create && var.create_default_user ? 1 : 0
 
-  access_string = try(var.default_user.access_string, "on ~* +@read")
+  access_string = try(var.default_user.access_string, "on ~* -@all +@read")
 
   dynamic "authentication_mode" {
     for_each = try([var.default_user.authentication_mode], [])
